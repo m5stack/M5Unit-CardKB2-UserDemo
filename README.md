@@ -1,48 +1,35 @@
-# Product Name
+# M5Unit-CardKB2-UserDemo
 
-## Overview
+**Factory firmware** for the [M5Stack Unit CardKB2](https://docs.m5stack.com/en/products/sku/u215) (**SKU: U215**), built with [ESP-IDF](https://github.com/espressif/esp-idf). It provides matrix keyboard scanning, RGB status LED, and key output over **I2C / UART / ESP-NOW / BLE HID**—including manufacturing / QA hooks such as I2C-triggered production-test mode.
 
-### SKU:xxx
+-----------------
+## Operating mode
 
-Description of the product
+| Mode | Description |
+|------|-------------|
+| **I2C** (default) | I2C slave reports characters / key data to the host. |
+| **UART** | Custom frames with key index and press / release over UART. |
+| **ESP-NOW** | Broadcasts key frames (similar framing to UART). |
+| **BLE HID** | Bluetooth HID keyboard, including arrow keys via Fn combos. |
 
-## Related Link
+### Switching modes
 
-- [Document & Datasheet](https://docs.m5stack.com/en/unit/product_Link)
+Hold **Fn + Sym**, then press **1 / 2 / 3 / 4** on the top number row to select **I2C / UART / ESP-NOW / BLE HID** respectively.
 
-## Required Libraries:
+**Note:** **Fn + 1** alone (top-left number key) sends **ESC** in most modes; it does **not** switch modes.
 
-- [Adafruit_BMP280_Library](https://github.com/adafruit/Required_Libraries_Link)
+--------------------
+## Build environment
 
-## License
+* idf version: ESP-IDF v6.1-dev-dirty
 
-- [Product Name- MIT](LICENSE)
-
-## Remaining steps(Editorial Staff Look,After following the steps, remember to delete all the content below)
-
-1. Change [clang format check path](./.github/workflows/clang-format-check.yml#L42-L47).
-2. Add License content to [LICENSE](/LICENSE).
-3. Change link on line 78 of [bug-report.yml](./.github/ISSUE_TEMPLATE/bug-report.yml#L79).
-
-```cpp
-Example
-# M5Unit-ENV
-
-## Overview
-
-### SKU:U001 & U001-B & U001-C
-
-Contains M5Stack-**UNIT ENV** series related case programs.ENV is an environmental sensor with integrated SHT30 and QMP6988 internally to detect temperature, humidity, and atmospheric pressure data.
-
-## Related Link
-
-- [Document & Datasheet](https://docs.m5stack.com/en/unit/envIII)
-
-## Required Libraries:
-
-- [Adafruit_BMP280_Library](https://github.com/adafruit/Adafruit_BMP280_Library)
-
-## License
-
-- [M5Unit-ENV - MIT](LICENSE)
+```bash
+cd src
+idf.py set-target esp32c61
+idf.py build
+idf.py -p <PORT> flash monitor
 ```
+
+## License
+
+This project is licensed under the MIT License—see [LICENSE](LICENSE).
