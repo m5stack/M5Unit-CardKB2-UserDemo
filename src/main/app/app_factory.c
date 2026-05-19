@@ -495,6 +495,15 @@ static void app_mode_apply(app_mode_t new_mode, bool save_nvs)
             break;
     }
 
+    // Fix: reset modifier state and refresh LED on mode switch (avoids leaking Sym/Fn into new mode)
+    sym_mode      = false;
+    sym_pressed   = false;
+    fn_pressed    = false;
+    caps_one_time = false;
+    caps_locked   = false;
+    caps_hold     = false;
+    app_update_led_state();
+
     if (save_nvs) {
         app_save_mode_to_nvs(g_mode);
     }
