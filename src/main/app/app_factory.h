@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 // 固件版本定义
-#define FIRMWARE_VERSION    0x01
+#define FIRMWARE_VERSION    0x02
 
 // 键盘状态定义
 typedef struct {
