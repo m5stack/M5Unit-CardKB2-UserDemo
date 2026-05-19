@@ -593,7 +593,8 @@ static void app_process_key_event(key_event_t *key_event)
                 bsp_blehid_send_keycode(0, USB_HID_KEY_ESC);
             }
         } else if (g_mode == MODE_UART) {
-            bsp_uart_send(&esc_char, 1);
+            // Fix: send framed ESC (host parser expects 5-byte KEY_ID + KEY_STATE frame)
+            app_send_uart_frame(KEY_ESC, true);
         }
         return;
     }
