@@ -607,6 +607,17 @@ static void app_process_key_event(key_event_t *key_event)
         }
     }
 
+    // Fix: consume caps one-shot in UART/ESP-NOW modes when an alphabetic key is pressed
+    // (originally only handled in I2C/BLEHID ASCII paths — see app_clear_caps_one_time call below)
+    if (is_press && !key_event->is_repeat && !fn_pressed &&
+        (g_mode == MODE_UART || g_mode == MODE_ESPNOW)) {
+        char c = 0;
+        if (app_get_key_char(key_event->button_index, &c) &&
+            ((c >= 0x41 && c <= 0x5A) || (c >= 0x61 && c <= 0x7A))) {
+            app_clear_caps_one_time();
+        }
+    }
+
     // 产测模式：通过 UART 上报按键事件
     if (g_mode == MODE_PRODTEST && (is_press || is_release)) {
         bsp_uart_printf("+KEY:%d,%d\r\n", key_event->button_index, key_event->event);
