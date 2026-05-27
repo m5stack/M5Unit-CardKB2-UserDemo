@@ -30,6 +30,27 @@ idf.py build
 idf.py -p <PORT> flash monitor
 ```
 
+### Merge binary
+
+After building, generate a single flash image from the bootloader, partition table, and app binaries:
+
+```bash
+esptool --chip esp32c61 merge-bin \
+  -o UnitCardKB2-ESP32C61-Factory-V2_0x00.bin \
+  --flash-mode dio \
+  --flash-freq 80m \
+  --flash-size 2MB \
+  0x0 build/bootloader/bootloader.bin \
+  0x8000 build/partition_table/partition-table.bin \
+  0x10000 build/main.bin
+```
+
+Flash the merged binary:
+
+```bash
+esptool --chip esp32c61 -p /dev/ttyACM0 -b 1500000 write-flash 0x0 UnitCardKB2-ESP32C61-Factory-V2_0x00.bin
+```
+
 ## License
 
 This project is licensed under the MIT License—see [LICENSE](LICENSE).
