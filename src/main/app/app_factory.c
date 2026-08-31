@@ -768,7 +768,12 @@ static void app_process_key_event(key_event_t *key_event)
         char key_char = 0;
         if (app_get_key_char(key_event->button_index, &key_char)) {
             if (g_mode == MODE_I2C) {
-                bsp_i2c_add_key((uint8_t)key_char);
+                uint8_t i2c_key = (uint8_t)key_char;
+                // CardKB hosts (e.g. Meshtastic) expect CR for Enter, not LF from keymap
+                if (i2c_key == 0x0A || key_event->button_index == KEY_ENTER) {
+                    i2c_key = KEYCODE_ENTER;
+                }
+                bsp_i2c_add_key(i2c_key);
             } else if (g_mode == MODE_BLEHID) {
                 if (bsp_blehid_is_connected()) {
                     bsp_blehid_send_key(key_char);
