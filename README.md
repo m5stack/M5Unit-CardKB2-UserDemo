@@ -7,7 +7,7 @@
 
 | Mode | Description |
 |------|-------------|
-| **I2C** (default) | I2C slave reports characters / key data to the host. |
+| **I2C** (default) | I2C slave reports characters / key data to the host. Enter sends CardKB CR (`0x0D`). Fn+D/X/Z/C emit CardKB navigation codes (`0xB5`/`0xB6`/`0xB4`/`0xB7`) for host UI navigation (e.g. Meshtastic). |
 | **UART** | Custom frames with key index and press / release over UART. |
 | **ESP-NOW** | Broadcasts key frames (similar framing to UART). |
 | **BLE HID** | Bluetooth HID keyboard, including arrow keys via Fn combos. |
