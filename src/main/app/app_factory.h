@@ -57,6 +57,13 @@ typedef struct {
 #define KEY_DOWN         36 // 下方向键 (行3, 列3) = 3*11+3 = 36 (Fn+X)
 #define KEY_RIGHT        37 // 右方向键 (行3, 列4) = 3*11+4 = 37 (Fn+C)
 
+// Original M5Stack CardKB I2C navigation key codes (used by Meshtastic and other hosts)
+#define KEYCODE_ENTER        0x0D
+#define KEYCODE_ARROW_LEFT   0xB4
+#define KEYCODE_ARROW_UP     0xB5
+#define KEYCODE_ARROW_DOWN   0xB6
+#define KEYCODE_ARROW_RIGHT  0xB7
+
 // 输出模式选择：1=DEBUG模式(输出index), 0=正常模式(输出ASCII)
 #define KEYBOARD_DEBUG_MODE   0
 
